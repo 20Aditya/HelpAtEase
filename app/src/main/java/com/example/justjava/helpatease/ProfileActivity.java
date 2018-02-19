@@ -35,8 +35,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -93,18 +96,52 @@ public class ProfileActivity extends AppCompatActivity {
                     type = "Volunteer";
                     userRef.child("Type").setValue(type);
 
+
                 }
                 if(organisation.isChecked()) {
                     type = "Organisation";
                     userRef.child("Type").setValue(type);
-                }
 
+                }
+                function();
                 Toast.makeText(getApplicationContext(), "Details Saved..!", Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
+    public void function(){
 
+        final String[] typo = new String[1];
+        DatabaseReference rootref = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference demoref = rootref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Type");
+
+        demoref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                typo[0] = dataSnapshot.getValue(String.class);
+                if(typo[0]!=null && typo[0].equals("Volunteer"))
+                {
+                    Log.d("ProfileActivity","Type=1");
+                    finish();
+                    startActivity(new Intent(ProfileActivity.this,VolunteerActivity.class));
+
+                }
+                else if(typo[0]!=null && typo[0].equals("Organisation")) {
+                    Log.d("ProfileActivity","Type=3");
+                    finish();
+                    startActivity(new Intent(ProfileActivity.this, OrganisationActivity.class));
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 
     @Override
@@ -114,7 +151,7 @@ public class ProfileActivity extends AppCompatActivity {
             finish();
             startActivity(new Intent(this, MainActivity.class));
         }
-        
+
     }
 
 

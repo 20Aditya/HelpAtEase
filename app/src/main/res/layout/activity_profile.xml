@@ -47,6 +47,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="71dp"
         android:ems="10"
+        android:hint="Phone"
         android:inputType="textPersonName"
         tools:hint="Phone" />
 
@@ -57,6 +58,7 @@
         android:layout_alignStart="@+id/editText"
         android:layout_below="@+id/radioGroup"
         android:ems="10"
+        android:hint="City"
         android:inputType="textPersonName"
         tools:hint="City" />
 

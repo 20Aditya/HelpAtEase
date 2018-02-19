@@ -11,18 +11,18 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class VolunteerActivity extends AppCompatActivity {
+public class OrganisationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_volunteer);
+        setContentView(R.layout.activity_organisation);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         TextView txt = (TextView)findViewById(R.id.text);
-        txt.setText("Bhak Bsdk");
+        txt.setText("Hello bc kaam kr rha hai");
     }
 
 
@@ -50,5 +50,4 @@ public class VolunteerActivity extends AppCompatActivity {
 
         return true;
     }
-
 }
