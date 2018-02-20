@@ -86,7 +86,7 @@ public class ProfileActivity extends AppCompatActivity {
                 editText3.setText(city);
                 boolean checkbox;
                 String type;
-// Assuming the user is already logged in.
+                // Assuming the user is already logged in.
                 Firebase userRef = rootRef.child("users/"+FirebaseAuth.getInstance().getCurrentUser().getUid());
                 userRef.child("Name").setValue(name);
                 userRef.child("Phone").setValue(phone);

@@ -17,9 +17,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".VolunteerActivity" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".OrganisationActivity"></activity>
+        <activity
+            android:name=".VolunteerActivity"
+            android:label="@string/title_activity_volunteer" />
+        <activity
+            android:name=".OrganisationActivity"
+            android:label="@string/title_activity_organisation"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
