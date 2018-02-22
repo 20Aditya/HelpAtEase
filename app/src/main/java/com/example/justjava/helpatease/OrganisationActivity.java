@@ -13,11 +13,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+
 public class OrganisationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    ListView listView;
+    Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +38,7 @@ public class OrganisationActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(OrganisationActivity.this,AddEventActivity.class));
             }
         });
 
@@ -43,6 +50,27 @@ public class OrganisationActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        listView = (ListView)findViewById(R.id.listview);
+        realm = Realm.getDefaultInstance();
+        RealmResults<EventModel> results = realm.where(EventModel.class).equalTo("uid",FirebaseAuth.getInstance().getCurrentUser().getUid()).findAllAsync();
+        EventModelAdapter eventModelAdapter = new EventModelAdapter(results);
+        listView.setAdapter(eventModelAdapter);
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+                EventModel model = (EventModel)parent.getItemAtPosition(position);
+                Intent viewevent = new Intent(OrganisationActivity.this,EditEventActivity.class);
+                int eid = model.getEid();
+                viewevent.putExtra(Utilities.EID,String.valueOf(eid));
+                startActivity(viewevent);
+
+
+            }
+        });
     }
 
     @Override
