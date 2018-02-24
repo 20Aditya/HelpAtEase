@@ -3,8 +3,8 @@
     package="com.example.justjava.helpatease">
 
     <application
-        android:allowBackup="true"
         android:name=".HelpAtEase"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -20,14 +20,17 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".ProfileActivity" />
         <activity
-            android:name=".VolunteerActivity"
-            android:label="@string/title_activity_volunteer" />
-        <activity
             android:name=".OrganisationActivity"
             android:label="@string/title_activity_organisation"
             android:theme="@style/AppTheme" />
         <activity android:name=".AddEventActivity" />
-        <activity android:name=".EditEventActivity"></activity>
+        <activity android:name=".EditEventActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity
+            android:name=".VolunteerActivity"
+            android:label="@string/title_activity_volunteer"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ViewmyEventActivity"></activity>
     </application>
 
 </manifest>

@@ -18,7 +18,7 @@ public class HelpAtEase extends Application {
         super.onCreate();
 
         Realm.init(this);
-
+        Firebase.setAndroidContext(this);
     }
 
 }
