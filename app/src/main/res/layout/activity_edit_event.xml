@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:layout_height="match_parent"
     tools:context=".AddEventActivity">
 
@@ -20,7 +21,7 @@
         android:layout_height="39dp"
         android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="27dp"
         android:ems="10"
         android:hint="Event Title"
         android:inputType="textPersonName"
@@ -31,8 +32,8 @@
     <EditText
         android:id="@+id/editText2"
         android:layout_width="367dp"
-        android:layout_height="263dp"
-        android:layout_alignStart="@+id/editText"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/editText"
         android:layout_below="@+id/editText"
         android:ems="10"
         android:hint="Event Description"
@@ -93,5 +94,24 @@
         android:focusable="false"
         android:clickable="true"
         android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editText2"
+        android:layout_below="@+id/editText4"
+        android:layout_marginTop="23dp"
+        android:text="Registered Volunteers:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignEnd="@+id/textView2"
+        android:layout_below="@+id/textView18"
+        android:layout_marginTop="11dp"
+        android:id="@+id/list"/>
+
 
 </RelativeLayout>

@@ -31,7 +31,6 @@
             android:label="@string/title_activity_volunteer"
             android:theme="@style/AppTheme" />
         <activity android:name=".ViewmyEventActivity" />
-        <activity android:name=".ViewVolunteerActivity"></activity>
     </application>
 
 </manifest>

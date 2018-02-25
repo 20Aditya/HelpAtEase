@@ -34,6 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
     EventModel eventModel;
     RealmResults<EventModel> results;
     String Eid;
+    EventModel model;
     
     
     @Override
@@ -79,16 +80,15 @@ public class RegisterActivity extends AppCompatActivity {
                 myrealm.executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
-                        EventModel model = myrealm.where(EventModel.class).equalTo("eid", Integer.parseInt(Eid)).findFirst();
+                        model = myrealm.where(EventModel.class).equalTo("eid", Integer.parseInt(Eid)).findFirst();
 
                         Log.d("RegisterActivity","Eventid="+Integer.parseInt(Eid));
 
                         if(model!=null)
                             model.setUserid(FirebaseAuth.getInstance().getCurrentUser().getUid()+"$");
-
-
                     }
                 });
+
                 userRef.child("Events").child(String.valueOf(eventModel.getEid())).setValue(true);
                 startActivity(new Intent(RegisterActivity.this,VolunteerActivity.class));
 

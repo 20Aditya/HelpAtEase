@@ -117,7 +117,6 @@ public class OrganisationActivity extends AppCompatActivity
 
         if (id == R.id.registered_volunteers) {
             // Handle the camera action
-            startActivity(new Intent(OrganisationActivity.this,ViewVolunteerActivity.class));
         } else if (id == R.id.myprofile) {
 
         }

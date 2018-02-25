@@ -8,7 +8,18 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -20,6 +31,7 @@ public class EditEventActivity extends AppCompatActivity {
     Realm myrealm;
     RealmResults<EventModel> results;
     EventModel eventModel;
+    ArrayList<String> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +59,40 @@ public class EditEventActivity extends AppCompatActivity {
 
             }
         }
+
+        DatabaseReference rootref = FirebaseDatabase.getInstance().getReference();
+
+        ListView listView = (ListView)findViewById(R.id.list);
+        list = new ArrayList<String>();
+
+        String users = eventModel.getUserid();
+
+        int l = users.length();
+        for(int i=0;i<l;i++){
+            String ids = users.substring(i,i+28);
+            Log.d("ViewVolunteerActivity", "ids="+ids+"lastchar="+users.substring(28,29));
+            DatabaseReference demoref = rootref.child("users").child(ids).child("Name");
+
+            demoref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String name = dataSnapshot.getValue(String.class);
+                    list.add(name);
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            i=i+29;
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,list);
+        listView.setAdapter(adapter);
+
+
     }
 
     @Override
