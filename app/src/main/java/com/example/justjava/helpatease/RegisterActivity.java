@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.UUID;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -39,9 +41,13 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         myrealm = Realm.getDefaultInstance();
+
+
         Eid = getIntent().getStringExtra(Utilities.EID);
         if(Eid!=null){
 
@@ -70,14 +76,19 @@ public class RegisterActivity extends AppCompatActivity {
                 Firebase rootRef = new Firebase("https://helpatease-2c540.firebaseio.com/");
                 Firebase userRef = rootRef.child("users/"+FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-                /*myrealm.executeTransaction(new Realm.Transaction() {
+                myrealm.executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
-                        EventModel model = myrealm.createObject(EventModel.class, );
+                        EventModel model = myrealm.where(EventModel.class).equalTo("eid", Integer.parseInt(Eid)).findFirst();
 
-                        model.setUserid(FirebaseAuth.getInstance().getCurrentUser().getUid()+"$");
+                        Log.d("RegisterActivity","Eventid="+Integer.parseInt(Eid));
+
+                        if(model!=null)
+                            model.setUserid(FirebaseAuth.getInstance().getCurrentUser().getUid()+"$");
+
+
                     }
-                });*/
+                });
                 userRef.child("Events").child(String.valueOf(eventModel.getEid())).setValue(true);
                 startActivity(new Intent(RegisterActivity.this,VolunteerActivity.class));
 
