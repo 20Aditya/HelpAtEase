@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -67,30 +68,37 @@ public class EditEventActivity extends AppCompatActivity {
 
         String users = eventModel.getUserid();
 
-        int l = users.length();
-        for(int i=0;i<l;i++){
-            String ids = users.substring(i,i+28);
-            Log.d("ViewVolunteerActivity", "ids="+ids+"lastchar="+users.substring(28,29));
-            DatabaseReference demoref = rootref.child("users").child(ids).child("Name");
+        if(users!=null)
+        {
+            int l = users.length();
+            for (int i = 0; i < l; i++) {
+                String ids = users.substring(i, i + 28);
+                Log.d("ViewVolunteerActivity", "ids=" + ids + "lastchar=" + users.substring(28, 29));
+                DatabaseReference demoref = rootref.child("users").child(ids).child("Name");
 
-            demoref.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String name = dataSnapshot.getValue(String.class);
-                    list.add(name);
+                demoref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String name = dataSnapshot.getValue(String.class);
+                        list.add(name);
 
-                }
+                    }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
+                    }
+                });
 
-            i=i+29;
+
+                i = i + 29;
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+            listView.setAdapter(adapter);
+        }else{
+
+            Toast.makeText(this,"No registered Volunteers for this event",Toast.LENGTH_LONG).show();
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,list);
-        listView.setAdapter(adapter);
 
 
     }
